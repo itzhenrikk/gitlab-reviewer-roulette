@@ -1,0 +1,22 @@
+# English translations for GitLab Reviewer Roulette Bot
+
+roulette:
+  title: "🎲 Reviewer Roulette Results"
+  codeowner: "Code Owner"
+  team_member: "Team Member"
+  external: "External Reviewer"
+  active_reviews: "{{.Count}} active review"
+  active_reviews_plural: "{{.Count}} active reviews"
+  from_team: "from {{.Team}}"
+
+warnings:
+  no_team_label: "⚠️ No team label found. Please add a `name::team-name` label to this MR."
+  no_codeowners: "⚠️ Could not select a code owner. CODEOWNERS file may be missing or no owners are available."
+  limited_availability: "⚠️ Limited reviewer availability in some categories."
+  no_team_members: "⚠️ No team members available for selection."
+  no_external_reviewers: "⚠️ No external reviewers available for selection."
+
+errors:
+  selection_failed: "❌ Roulette Error\n\nFailed to select reviewers: {{.Error}}"
+  invalid_command: "❌ Invalid /roulette command syntax. Use: `/roulette [--force] [--include @user1 @user2] [--exclude @user3] [--no-codeowner]`"
+  webhook_processing: "❌ Failed to process webhook: {{.Error}}"
