@@ -7,6 +7,9 @@ RUN apk add --no-cache git make
 # Set working directory
 WORKDIR /build
 
+# Build arguments
+ARG VERSION=dev
+
 # Copy go mod files
 COPY go.mod go.sum ./
 
@@ -17,9 +20,9 @@ RUN go mod download
 COPY . .
 
 # Build the applications
-RUN go build -o /build/bin/server ./cmd/server
-RUN go build -o /build/bin/migrate ./cmd/migrate
-RUN go build -o /build/bin/init ./cmd/init
+RUN go build -ldflags="-s -w -X main.version=${VERSION}" -o /build/bin/server ./cmd/server
+RUN go build -ldflags="-s -w -X main.version=${VERSION}" -o /build/bin/migrate ./cmd/migrate
+RUN go build -ldflags="-s -w -X main.version=${VERSION}" -o /build/bin/init ./cmd/init
 
 # Runtime stage
 FROM alpine:latest

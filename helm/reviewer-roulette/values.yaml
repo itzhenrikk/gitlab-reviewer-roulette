@@ -7,7 +7,7 @@ replicaCount: 2
 
 # Docker image configuration
 image:
-  repository: gitlab-reviewer-roulette
+  repository: ghcr.io/aimd54/gitlab-reviewer-roulette
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

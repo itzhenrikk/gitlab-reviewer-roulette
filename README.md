@@ -252,19 +252,50 @@ kubectl exec -n reviewer-roulette -it deployment/reviewer-roulette -- \
 
 See [helm/reviewer-roulette/README.md](helm/reviewer-roulette/README.md) for complete Helm documentation.
 
-### Docker (Alternative)
+### Docker Image (Pre-built - Recommended)
 
-For single-host deployments:
+The application is available as a pre-built multi-architecture Docker image on GitHub Container Registry:
 
 ```bash
-# Build image
-docker build -t reviewer-roulette:1.5.0 .
+# Pull the latest version
+docker pull ghcr.io/aimd54/gitlab-reviewer-roulette:latest
 
-# Run migrations
+# Pull a specific version
+docker pull ghcr.io/aimd54/gitlab-reviewer-roulette:v1.8.0
+
+# Quick start (requires config.yaml)
+docker run -d \
+  --name reviewer-roulette \
+  -p 8080:8080 \
+  -p 9090:9090 \
+  -v $(pwd)/config.yaml:/app/config.yaml \
+  ghcr.io/aimd54/gitlab-reviewer-roulette:v1.8.0
+```
+
+**Available tags:**
+
+- `latest` - Latest stable release
+- `v1.8.0`, `1.8`, `1` - Semantic version tags
+- **Multi-arch**: `linux/amd64`, `linux/arm64` (automatically detected)
+
+### Docker (Building from Source)
+
+For single-host deployments or custom builds:
+
+```bash
+# Option 1: Pull pre-built image (recommended)
+docker pull ghcr.io/aimd54/gitlab-reviewer-roulette:v1.8.0
+
+# Option 2: Build from source
+git clone https://github.com/aimd54/gitlab-reviewer-roulette.git
+cd gitlab-reviewer-roulette
+docker build -t reviewer-roulette:v1.8.0 .
+
+# Run migrations (using pre-built or custom image)
 docker run --rm \
   --network host \
   -v $(pwd)/config.yaml:/app/config.yaml \
-  reviewer-roulette:1.5.0 \
+  ghcr.io/aimd54/gitlab-reviewer-roulette:v1.8.0 \
   /app/migrate up
 
 # Run application
@@ -277,7 +308,7 @@ docker run -d \
   -e GITLAB_TOKEN=$GITLAB_TOKEN \
   -e GITLAB_WEBHOOK_SECRET=$WEBHOOK_SECRET \
   -e POSTGRES_PASSWORD=$DB_PASSWORD \
-  reviewer-roulette:1.5.0
+  ghcr.io/aimd54/gitlab-reviewer-roulette:v1.8.0
 ```
 
 ### Docker Compose (Development/Small Deployments)
