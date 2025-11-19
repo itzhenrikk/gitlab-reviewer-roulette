@@ -804,7 +804,6 @@ Currently not implemented. Future consideration: OpenTelemetry integration for d
 - [README.md](README.md) - Quick start and setup
 - [CONTRIBUTING.md](CONTRIBUTING.md) - Contribution guidelines
 - [METRICS.md](METRICS.md) - Metrics and observability
-- [TECHNICAL_CONTEXT.md](TECHNICAL_CONTEXT.md) - Implementation details
 
 **External Resources:**
 

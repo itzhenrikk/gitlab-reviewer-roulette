@@ -6,8 +6,8 @@ We release patches for security vulnerabilities for the following versions:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 1.5.x   | :white_check_mark: |
-| < 1.5   | :x:                |
+| 1.8.x   | :white_check_mark: |
+| < 1.8   | :x:                |
 
 ## Reporting a Vulnerability
 
@@ -92,8 +92,8 @@ When deploying Reviewer Roulette:
 
 Security updates will be released as:
 
-- Patch releases (e.g., 1.5.1) for minor security issues
-- Minor releases (e.g., 1.6.0) for major security updates
+- Patch releases (e.g., 1.8.1) for minor security issues
+- Minor releases (e.g., 1.9.0) for major security updates
 
 Security advisories will be published via:
 
