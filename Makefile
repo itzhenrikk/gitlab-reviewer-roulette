@@ -613,7 +613,7 @@ setup-complete: docker-build ## Setup complete local Docker environment (automat
 .PHONY: gitlab-up
 gitlab-up: ## Start GitLab infrastructure
 	@printf "$(YELLOW)Starting GitLab infrastructure...$(NC)\n"
-	@$(DOCKER_COMPOSE) --profile gitlab up -d
+	@$(DOCKER_COMPOSE) --profile gitlab up -d gitlab
 	@printf "$(GREEN)✓ GitLab started$(NC)\n"
 	@printf "$(YELLOW)⏳ GitLab is starting (may take 5-10 minutes)...$(NC)\n"
 	@printf "Monitor: $(CYAN)make logs-gitlab$(NC)\n"

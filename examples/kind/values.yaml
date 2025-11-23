@@ -1,0 +1,181 @@
+image:
+  repository: ghcr.io/aimd54/gitlab-reviewer-roulette
+  tag: "1.8.0"
+  pullPolicy: IfNotPresent
+
+replicaCount: 1
+
+serviceAccount:
+  create: false
+  name: "default"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+autoscaling:
+  enabled: false
+
+ingress:
+  enabled: false
+
+podDisruptionBudget:
+  enabled: false
+
+affinity: {}
+
+scheduler:
+  enabled: true
+  dailyNotificationTime: "09:00"
+  badgeEvaluationTime: "0 2 * * *"
+  timezone: "UTC"
+  skipWeekends: true
+  skipHolidays: false
+
+config:
+  server:
+    port: 8080
+    environment: development
+    language: en
+
+  gitlab:
+    url: "https://gitlab.com"  # Change to your GitLab instance
+    botUsername: reviewer-roulette-bot
+    # Set GITLAB_TOKEN and GITLAB_WEBHOOK_SECRET via --set or secrets
+
+  postgres:
+    host: postgres
+    port: 5432
+    database: reviewer_roulette
+    user: postgres
+    password: postgres
+    sslMode: disable
+    maxOpenConns: 10
+    maxIdleConns: 2
+    connMaxLifetime: 300
+
+  redis:
+    host: redis
+    port: 6379
+    db: 0
+    password: ""
+    poolSize: 5
+
+  logging:
+    level: debug
+    format: console  # Human-readable for local debugging
+    output: stdout
+
+  mattermost:
+    enabled: false
+    webhookURL: ""
+    channel: "#reviews"
+
+  metrics:
+    retentionDays: 0
+
+  roulette:
+    cacheTTL: 300
+    maxRecentReviews: 5
+    weights:
+      currentLoad: 10
+      recentReview: 5
+      expertiseBonus: 2
+    expertise:
+      dev:
+        - "*.go"
+        - "*.js"
+        - "*.ts"
+        - "*.py"
+      ops:
+        - "*.yml"
+        - "*.yaml"
+        - "Dockerfile"
+        - "*.sh"
+
+  availability:
+    cacheTTL: 300
+    oooKeywords:
+      - "vacation"
+      - "ooo"
+      - "out of office"
+      - "pto"
+
+  teams:
+    - name: team-frontend
+      members:
+        - username: alice
+          role: dev
+        - username: bob
+          role: dev
+        - username: charlie
+          role: dev
+    - name: team-backend
+      members:
+        - username: david
+          role: dev
+        - username: eve
+          role: ops
+        - username: frank
+          role: dev
+    - name: team-platform
+      members:
+        - username: grace
+          role: ops
+        - username: henry
+          role: ops
+    - name: team-mobile
+      members:
+        - username: isabel
+          role: dev
+        - username: jack
+          role: dev
+    - name: team-data
+      members:
+        - username: kate
+          role: dev
+        - username: leo
+          role: ops
+
+  badges:
+    - id: early-bird
+      name: "Early Bird"
+      description: "First review within 1 hour"
+      icon: "🌅"
+      criteria:
+        type: time_to_first_review
+        threshold: 3600
+    - id: thorough
+      name: "Thorough Reviewer"
+      description: "Left detailed feedback"
+      icon: "🔍"
+      criteria:
+        type: comment_count
+        threshold: 10
+
+metrics:
+  enabled: true
+  port: 9090
+  serviceMonitor:
+    enabled: false  # Not using Prometheus Operator
+
+service:
+  type: ClusterIP
+  port: 8080
+  metricsPort: 9090
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  fsGroup: 1000
+
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false

@@ -19,7 +19,8 @@ fullnameOverride: ""
 # Service Account configuration
 serviceAccount:
   # Specifies whether a service account should be created
-  create: true
+  # Set to true once serviceaccount.yaml template is created
+  create: false
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.

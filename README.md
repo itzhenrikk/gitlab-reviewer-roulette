@@ -266,6 +266,8 @@ make help
 
 For complete development guidelines, see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+**Local Kubernetes Testing:** For testing the Helm chart in a local Kubernetes cluster (Kind/k3d), see [examples/kind/](./examples/kind/) for minimal manifests and instructions.
+
 ### Running Tests
 
 ```bash

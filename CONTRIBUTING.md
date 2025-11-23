@@ -89,6 +89,7 @@ and instructions for contributing to this project.
 ### Before Committing
 
 **During development** (every commit):
+
 - Pre-commit hooks run automatically (format, vet, lint, fast tests)
 
 **Before creating a PR**:

@@ -48,6 +48,15 @@ DRY_RUN=false
 VERBOSE=false
 AUTOMATED=false
 
+# Auto-detect Kind cluster and adjust webhook URL
+if docker ps --format '{{.Names}}' 2>/dev/null | grep -q 'reviewer-roulette-control-plane'; then
+    # Use Docker host IP for webhooks (requires Kind extraPortMappings)
+    WEBHOOK_URL="http://172.17.0.1:30080/webhook/gitlab"
+    echo "✅ Detected Kind cluster"
+    echo "📡 Using webhook URL: $WEBHOOK_URL (via Docker host)"
+    echo "ℹ️  Requires Kind cluster created with extraPortMappings for port 30080"
+fi
+
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'

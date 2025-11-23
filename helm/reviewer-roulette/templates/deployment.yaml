@@ -42,6 +42,13 @@ spec:
           args: ["up"]
           env:
             {{- include "reviewer-roulette.env" . | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: /app/config.yaml
+              subPath: config.yaml
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           resources:
@@ -86,8 +93,11 @@ spec:
 
           volumeMounts:
             - name: config
-              mountPath: /app/config
+              mountPath: /app/config.yaml
+              subPath: config.yaml
               readOnly: true
+            - name: tmp
+              mountPath: /tmp
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -96,6 +106,8 @@ spec:
         - name: config
           configMap:
             name: {{ include "reviewer-roulette.fullname" . }}-config
+        - name: tmp
+          emptyDir: {}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:

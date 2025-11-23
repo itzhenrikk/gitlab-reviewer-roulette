@@ -18,6 +18,32 @@ data:
       timeout: {{ .Values.config.gitlab.timeout }}
       {{- end }}
 
+    database:
+      postgres:
+        host: {{ .Values.config.postgres.host }}
+        port: {{ .Values.config.postgres.port }}
+        database: {{ .Values.config.postgres.database }}
+        user: {{ .Values.config.postgres.user }}
+        # password: set via POSTGRES_PASSWORD environment variable from Secret
+        ssl_mode: {{ .Values.config.postgres.sslMode }}
+        {{- if .Values.config.postgres.maxOpenConns }}
+        max_open_conns: {{ .Values.config.postgres.maxOpenConns }}
+        {{- end }}
+        {{- if .Values.config.postgres.maxIdleConns }}
+        max_idle_conns: {{ .Values.config.postgres.maxIdleConns }}
+        {{- end }}
+        {{- if .Values.config.postgres.connMaxLifetime }}
+        conn_max_lifetime: {{ .Values.config.postgres.connMaxLifetime }}
+        {{- end }}
+      redis:
+        host: {{ .Values.config.redis.host }}
+        port: {{ .Values.config.redis.port }}
+        db: {{ .Values.config.redis.db }}
+        # password: set via REDIS_PASSWORD environment variable from Secret
+        {{- if .Values.config.redis.poolSize }}
+        pool_size: {{ .Values.config.redis.poolSize }}
+        {{- end }}
+
     logging:
       level: {{ .Values.config.logging.level }}
       format: {{ .Values.config.logging.format }}
@@ -39,15 +65,28 @@ data:
     scheduler:
       enabled: {{ .Values.scheduler.enabled }}
       {{- if .Values.scheduler.dailyNotificationTime }}
-      daily_notification_time: {{ .Values.scheduler.dailyNotificationTime | quote }}
+      time: {{ .Values.scheduler.dailyNotificationTime | quote }}
+      {{- end }}
+      {{- if .Values.scheduler.badgeEvaluationTime }}
+      badge_evaluation_time: {{ .Values.scheduler.badgeEvaluationTime | quote }}
       {{- end }}
       {{- if .Values.scheduler.timezone }}
       timezone: {{ .Values.scheduler.timezone | quote }}
+      {{- end }}
+      {{- if hasKey .Values.scheduler "skipWeekends" }}
+      skip_weekends: {{ .Values.scheduler.skipWeekends }}
+      {{- end }}
+      {{- if hasKey .Values.scheduler "skipHolidays" }}
+      skip_holidays: {{ .Values.scheduler.skipHolidays }}
       {{- end }}
 
     roulette:
       cache_ttl: {{ .Values.config.roulette.cacheTTL }}
       max_recent_reviews: {{ .Values.config.roulette.maxRecentReviews }}
+      weights:
+        current_load: {{ .Values.config.roulette.weights.currentLoad }}
+        recent_review: {{ .Values.config.roulette.weights.recentReview }}
+        expertise_bonus: {{ .Values.config.roulette.weights.expertiseBonus }}
       expertise:
         dev:
           {{- range .Values.config.roulette.expertise.dev }}
@@ -57,6 +96,15 @@ data:
           {{- range .Values.config.roulette.expertise.ops }}
           - {{ . | quote }}
           {{- end }}
+
+    {{- if .Values.config.availability }}
+    availability:
+      cache_ttl: {{ .Values.config.availability.cacheTTL }}
+      ooo_keywords:
+        {{- range .Values.config.availability.oooKeywords }}
+        - {{ . | quote }}
+        {{- end }}
+    {{- end }}
 
     teams:
       {{- range .Values.config.teams }}
